@@ -1,0 +1,20 @@
+version: '3.8'
+
+services:
+  app:
+    build: .
+    volumes:
+      - ./src:/var/www/html
+      - ./tests:/var/www/html/tests
+    ports:
+      - "80:80"
+    environment:
+      - APACHE_DOCUMENT_ROOT=/var/www/html
+    tty: true
+
+  phpunit:
+    build: .
+    volumes:
+      - ./src:/var/www/html
+      - ./tests:/var/www/html/tests
+    command: vendor/bin/phpunit tests/PizzaServiceTest.php
